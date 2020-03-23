@@ -56,6 +56,38 @@ class User {
 
     }
 
+    public static function getList(){
+
+        $sql = new Sql();
+
+        return $sql->select('SELECT * FROM tb_usuarios ORDER BY nome');
+
+    }
+
+    public function login($login, $password){
+
+        $sql = new Sql();
+        
+        $result = $sql->select("SELECT * FROM tb_usuarios WHERE hash = :LOGIN AND senha = :PASSWORD", array(
+            ":LOGIN"=>$login,
+            ":PASSWORD"=>$password
+        ));
+
+        if (count($result) > 0) {
+
+            $row = $result[0];
+
+            $this->setId($row['id']);
+            $this->setPassword($row['senha']);
+            $this->setHash($row['hash']);
+            $this->setEmail($row['email']);
+
+        } else {
+            throw new Exception("Login e/ou senha inválidos.");
+        }
+
+    }
+
     public function __toString()
     {
        return json_encode(array(

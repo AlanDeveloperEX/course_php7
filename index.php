@@ -7,6 +7,7 @@
     $usuarios = $sql->select("SELECT * FROM tb_usuarios");
 
     //echo json_encode($usuarios);
+
     //TEST COM OWN ARRAY
     $test = [
 
@@ -15,16 +16,29 @@
 
     ];
 
-    echo '<br><br>';
+    //echo '<br><br>';
 
     //echo json_encode($test);
 
-    //SELECT BY ID
+    //SELECT ONE BY ID
 
     $user = new User();
 
     $user->loadById(2);
 
-    echo $user;
+    //echo $user;
+
+    //SELECT LIST BY TABLE
+    $list = User::getList();
+
+    //echo json_encode($list);
+
+    //LOAD USER BY LOGIN AND PASSWORD
+
+    $verifiedUser = new User();
+
+    $verifiedUser->login("4544", "123465"); //hash and password by row table
+
+    echo $verifiedUser;
 
 ?>
